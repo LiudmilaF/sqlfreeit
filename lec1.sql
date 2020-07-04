@@ -1,4 +1,4 @@
-create database freeIT
+﻿create database freeIT
 use freeit
 create table STUDENTS (
 STUD_ID int not null identity primary key,
@@ -44,3 +44,11 @@ alter table Subjects drop Subj_ID;
 alter table Subjects add primary key(Subj_Name); 
 alter table Plans add foreign key (subj_ID) references Subjects(Subj_Name);
 alter table Plans add foreign key (gr_ID) references Groups(group_id);
+
+insert into Students values ('П.', 'Федоренко','Р', '25.12.1997','ПО135'),
+('О.', 'Зингел',' ', '25.12.1985','ПО135'),
+('П.', 'Михеенок','Г.', '05.02.1993','ПО134'),
+('Н', 'Савицкаян',' ', '22.09.1987','ПО235'),
+('М', 'Ковальчук','Е', '17.06.1992','ПО235'),
+('Н', 'Заболотная','Г.', '18.06.1992','ПО335'),
+('Т', 'Кавриго','Р', '13.05.1992','ПО335')

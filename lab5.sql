@@ -73,6 +73,14 @@ having count (distinct students.phone)>
 ---Семена (Семен один любой)
 
 
+Select count(*), (Select month(br_date) from students where name=N'Семен') as 'br_month' from students
+where month(br_date)=(Select month(br_date) from students
+where name=N'Семен') and name<>N'Семен'
+
+---Select (Select month(br_date) from students where name=N'Семен') as 'br_month'
+
+---(Select month(br_date) from students
+---where name=N'Семен')
 
 ---8. Найти сопровождающих, роль или роли которых совпадают с ролью
 ---или ролями Андрея (один любой Андрей)

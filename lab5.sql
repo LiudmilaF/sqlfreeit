@@ -50,13 +50,13 @@ join (Select Themes.name as course, forms.name as course_type from students
 ---5. Найти курсы, на которых количество лекций и лабораторных столько
 ---же, сколько и на курсе IM
 
-Select themes.name from themes
-join courses on themes.id=courses.id_theme
+Select * from themes
+join courses on themes.id=courses.id_theme and courses.lect_hours=
 
 (Select lect_hours from courses
 join themes on themes.id=courses.id_theme
 where themes.name='im')
-
+and courses.labs_hours=
 (Select labs_hours from courses
 join themes on themes.id=courses.id_theme
 where themes.name='im')

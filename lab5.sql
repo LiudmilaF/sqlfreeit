@@ -22,19 +22,22 @@ join forms on forms.id=courses.id_form
 ---3. Вывести список курсов, на которых учится наибольшее количество
 ---студентов
 
-Select Course_name from 
+		Select Course_name, maximum_quantity from 
 		(Select themes.name as 'Course_name', count (distinct students.phone) as 'maximum_quantity' from themes
 		join courses on courses.id_theme=themes.id
 		join connects on connects.id_course=courses.id
 		join students on students.id=connects.id_student
 		group by themes.name) new
-	---после этого селекта вижу максимальное значение =7, поэтому подставляю его
-		where new.maximum_quantity=7
+		where new.maximum_quantity=(Select max(maximum_quantity) from (Select themes.name as 'Course_name', count (distinct students.phone) as 'maximum_quantity' from themes
+		join courses on courses.id_theme=themes.id
+		join connects on connects.id_course=courses.id
+		join students on students.id=connects.id_student
+		group by themes.name) neww)
 		
 ---4. Вывести список тех, кто учится на одном курсе с Романом, но младше
 ---его
 
-Select * from students
+Select students.name, students.phone, students.br_date, themes.name from students
 join connects on connects.id_student=students.id and students.name<>N'Роман'
 join courses on courses.id=connects.id_course
 join forms on forms.id=courses.id_form
@@ -44,9 +47,13 @@ join (Select Themes.name as course, forms.name as course_type from students
 	join courses on courses.id=connects.id_course
 	join forms on forms.id=courses.id_form
 	join themes on themes.id=courses.id_theme) spisok on spisok.course=themes.name 
-	and spisok.course_type=forms.name and students.br_date>'19971207'
-	
+	and spisok.course_type=forms.name and students.br_date>(Select students.br_date from students
+	join connects on connects.id_student=students.id and students.name=N'Роман'
+	join courses on courses.id=connects.id_course
+	join forms on forms.id=courses.id_form
+	join themes on themes.id=courses.id_theme)
 
+	
 ---5. Найти курсы, на которых количество лекций и лабораторных столько
 ---же, сколько и на курсе IM
 

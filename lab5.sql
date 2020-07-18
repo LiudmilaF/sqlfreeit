@@ -93,3 +93,12 @@ where name=N'Семен') and name<>N'Семен'
 
 ---8. Найти сопровождающих, роль или роли которых совпадают с ролью
 ---или ролями Андрея (один любой Андрей)
+
+Select roles.name, persones.name, persones.phone, persones.br_date from roles
+join missions on missions.id_role=roles.id
+join persones on persones.id=missions.id_persone
+
+join (Select roles.name from roles
+	join missions on missions.id_role=roles.id
+	join persones on persones.id=missions.id_persone
+	where persones.name=N'Андрей') newww on roles.name=newww.name

@@ -39,3 +39,8 @@ group by shop_name
 --+ клиентах, которые сделали покупки во всех автосалонах (запрос
 --+ должен быть независим от текущего числа автосалонов, т.е. должен
 --+ работать даже если число автосалонов изменится)
+
+create view Clients_info
+as
+select sales.id_client, client_name, sale_date, id_shop_address from clients
+join sales on sales.id_client=clients.id

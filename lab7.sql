@@ -44,3 +44,17 @@ create view Clients_info
 as
 select sales.id_client, client_name, sale_date, id_shop_address from clients
 join sales on sales.id_client=clients.id
+
+--+ 4) Найти покупателей, которые приобретали машины в автосалоне
+--+ Иномарка, при этом не приобретали автомобили в салоне 4 колеса,
+--+ сохранить запрос как представление
+ 
+Create view Inomarka_only_customers
+as
+Select distinct id_client from clients
+join sales on sales.id_client=clients.id
+join shops on shops.id=sales.id_shop_address and shop_name=N'Иномарка'
+except
+Select distinct id_client from clients
+join sales on sales.id_client=clients.id
+join shops on shops.id=sales.id_shop_address and shop_name=N'4 колеса'

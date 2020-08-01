@@ -18,9 +18,6 @@ exec count_1
 go
 create procedure count_2 (@shop_n nvarchar(20))
 as
-
 select count(*) as 'количествo продаж в январе' from sales 
-		join shops on shops.id=sales.id_shop_address and month(sale_date)=1 and shop_name=@shop_n
+join shops on shops.id=sales.id_shop_address and month(sale_date)=1 and shop_name=@shop_n
 go
-
-exec count_2 'all cars'
